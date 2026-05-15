@@ -7,9 +7,9 @@ def configure(conf):
 def build(bld):
     if not bld.env.IS_TARGET_DESKTOP:
         return
-
-    if not waflib.Options.options.with_vulkan:
-        bld.recurse('gdc')
+    #GDefold patch; controller support not necessary.
+    #if not waflib.Options.options.with_vulkan:
+    #    bld.recurse('gdc')
 
     bld.recurse('launcher')
     bld.recurse('texconvert')

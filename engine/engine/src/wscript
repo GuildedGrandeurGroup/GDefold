@@ -168,8 +168,8 @@ def build(bld):
     resource_provider_symbols = ['ResourceProviderHttp']
 
     obj = bld(
-        features = 'c cxx cprogram apk web extract_symbols',
-        use = 'engine_rs PROFILEREXT GAMEOBJECT DDF LIVEUPDATE RESOURCE GAMESYS PHYSICS RECORD RENDER SOCKET SCRIPT LUA EXTENSION HID INPUT PARTICLE RIG DLIB GUI CRASH engine engine_service'.split() + graphics_lib + sound_lib + profile_lib + platform_lib + additional_libs,
+        features = 'c cxx cprogram apk extract_symbols',
+        use = 'engine_rs PROFILEREXT GAMEOBJECT DDF LIVEUPDATE RESOURCE GAMESYS PHYSICS RECORD RENDER SOCKET SCRIPT LUA EXTENSION INPUT PARTICLE RIG DLIB GUI CRASH engine engine_service HID'.split() + graphics_lib + sound_lib + profile_lib + platform_lib + additional_libs,
         web_libs = web_libs,
         exported_symbols = exported_symbols + profile_symbols + resource_type_symbols + resource_provider_symbols + component_type_symbols,
         includes = '../build ../proto . ..',
@@ -185,8 +185,11 @@ def build(bld):
         jars = android_jar_paths)
 
     if 'win32' in bld.env.PLATFORM:
-        obj.source.append('engine.rc') # Needs to bundle with icons, or IconExe.java won't be able to replace them (it cannot add them)
-        obj.env.append_value('LINKFLAGS', ['Psapi.lib'])
+        obj.source.append('engine.rc')
+        obj.env.append_value('LINKFLAGS', [
+            'Psapi.lib',
+            os.path.join(platform_lib_install_path, 'hid.lib')
+        ])
         bld.install_files('${PREFIX}/lib/%s' % bld.env['PLATFORM'], 'defold.ico')
         bld.install_files('${PREFIX}/lib/%s' % bld.env['PLATFORM'], 'engine.rc')
 
@@ -196,8 +199,8 @@ def build(bld):
     bld.add_group()
 
     obj = bld(
-        features = 'c cxx cprogram apk web extract_symbols',
-        use = 'GAMEOBJECT DDF LIVEUPDATE RESOURCE GAMESYS PHYSICS RECORD RENDER SOCKET SCRIPT LUA EXTENSION HID INPUT PARTICLE RIG DLIB GUI CRASH engine_release engine_service_null'.split() + graphics_lib + sound_lib + platform_lib + additional_libs + profile_null_libs,
+        features = 'c cxx cprogram apk extract_symbols',
+        use = 'GAMEOBJECT DDF LIVEUPDATE RESOURCE GAMESYS PHYSICS RECORD RENDER SOCKET SCRIPT LUA EXTENSION INPUT PARTICLE RIG DLIB GUI CRASH engine_release engine_service_null HID'.split() + graphics_lib + sound_lib + platform_lib + additional_libs + profile_null_libs,
         web_libs = web_libs,
         exported_symbols = exported_symbols + profile_null_symbols + resource_type_symbols + component_type_symbols,
         includes = '../build ../proto . ..',
@@ -212,8 +215,13 @@ def build(bld):
 
     if 'win32' in bld.env.PLATFORM:
         obj.source.append('engine.rc')
-        obj.env.append_value('LINKFLAGS', ['/SUBSYSTEM:WINDOWS', '/ENTRY:mainCRTStartup', 'Psapi.lib'])
-
+        obj.env.append_value('LINKFLAGS', [
+            '/SUBSYSTEM:WINDOWS',
+            '/ENTRY:mainCRTStartup',
+            'Psapi.lib',
+            os.path.join(platform_lib_install_path, 'hid.lib')
+        ])
+    
     additional_libs = []
     if bld.env['PLATFORM'] in ('armv7-android', 'arm64-android', 'x86_64-macos'):
         additional_libs += ['UNWIND']
@@ -233,8 +241,8 @@ def build(bld):
     bld.add_group()
 
     obj = bld(
-        features = 'c cxx cprogram apk web extract_symbols',
-        use = 'RECORD_NULL GAMEOBJECT DDF LIVEUPDATE GAMESYS RESOURCE PHYSICS RENDER SOCKET SCRIPT LUA EXTENSION HID_NULL INPUT PARTICLE PLATFORM_NULL RIG GUI CRASH DLIB SOUND_NULL engine engine_service'.split() + graphics_lib.split() + profile_lib + additional_libs,
+        features = 'c cxx cprogram apk extract_symbols',
+        use = 'RECORD_NULL GAMEOBJECT DDF LIVEUPDATE GAMESYS RESOURCE PHYSICS RENDER SOCKET SCRIPT LUA EXTENSION INPUT PARTICLE PLATFORM_NULL RIG GUI CRASH DLIB SOUND_NULL engine engine_service HID_NULL'.split() + graphics_lib.split() + profile_lib + additional_libs,
         exported_symbols = ['LiveUpdateExt', 'ScriptTypesExt', 'GraphicsAdapterNull'] + profile_symbols + resource_type_symbols + component_type_symbols,
         web_libs = web_libs,
         includes = '../build ../proto . ..',
