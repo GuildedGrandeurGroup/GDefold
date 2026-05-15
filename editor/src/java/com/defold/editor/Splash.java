@@ -74,30 +74,17 @@ public class Splash {
         return tips.get(randomInt(tips.size()));
     }
 
-    private static void randomGame(Scene scene) {
-        List<String[]> games = new ArrayList<>();
+    private static void randomHistory(Scene scene) {
+        List<String[]> moments = new ArrayList<>();
         
-        games.add(new String[]{"Family Island", "/games/familyisland.jpg"});
-        games.add(new String[]{"Solitaire Jazz Travel", "/games/solitairejazztravel.jpg"});
-        games.add(new String[]{"Duo Zombies", "/games/duozombies.jpg"});
-        games.add(new String[]{"Fates of Ort", "/games/fatesofort.jpg"});
-        games.add(new String[]{"Plague Lords", "/games/plaguelords.jpg"});
-        games.add(new String[]{"Void Scrappers", "/games/voidscrappers.jpg"});
-        games.add(new String[]{"Monkey Mart", "/games/monkeymart.jpg"});
-        games.add(new String[]{"Look Your Loot", "/games/lookyourloot.jpg"});
-        games.add(new String[]{"Warnament", "/games/warnament.jpg"});
-        games.add(new String[]{"Craftomation 101", "/games/craftomation101.jpg"});
-        games.add(new String[]{"BORE BLASTERS", "/games/boreblasters.jpg"});
-        games.add(new String[]{"Skull Horde", "/games/skullhorde.jpg"});
-        games.add(new String[]{"SuperWEIRD", "/games/superweird.jpg"});
-        games.add(new String[]{"Tiny Racing", "/games/tinyracing.jpeg"});
+        moments.add(new String[]{"First Successful GDefold build, 15/5/2026", "/GGGhistory/GDefoldItLives+base.png"});
 
-        String[] game = games.get(randomInt(games.size()));
+        String[] moment = moments.get(randomInt(moments.size()));
 
-        ImageView gameScreenshot = (ImageView) scene.lookup("#game-screenshot");
-        gameScreenshot.setImage(new Image(game[1]));
-        Label gameNameLabel = (Label) scene.lookup("#game-name");
-        gameNameLabel.setText(game[0]);
+        ImageView momentImage = (ImageView) scene.lookup("#history-GGG");
+        momentImage.setImage(new Image(moment[1]));
+        Label momentCaption = (Label) scene.lookup("#history-name");
+        momentCaption.setText(moment[0]);
     }
 
     public void show() throws IOException {
@@ -109,7 +96,7 @@ public class Splash {
         stage.getIcons().add(new Image(Splash.class.getResourceAsStream("/logo_blue.png")));
         stage.setScene(scene);
 
-        randomGame(scene);
+        randomHistory(scene);
 
         TextFlow startupTipFlow = (TextFlow) scene.lookup("#startup-tip");
         startupTipFlow.visibleProperty().bind(errorShowing.not());
