@@ -539,8 +539,8 @@
 
 (defn make-title
   ([] (if-some [version (system/defold-version)]
-        (str "Defold " version)
-        "Defold"))
+        (str "GDefold " version)
+        "GDefold"))
   ([project-title] (str project-title " - " (make-title))))
 
 (defn tooltip! [^Control ctrl tip localization]

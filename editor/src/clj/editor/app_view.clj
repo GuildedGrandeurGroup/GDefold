@@ -3319,8 +3319,8 @@
 
 (defn- get-linux-desktop-entry [launcher-path install-dir]
   (str "[Desktop Entry]\n"
-       "Name=Defold\n"
-       "Comment=An out of the box, turn-key solution for multi-platform game development\n"
+       "Name=GDefold\n"
+       "Comment=GDefold, short for Guilded Defold, is the Guilded Grandeur Group in-house fork of Defold\n"
        "Terminal=false\n"
        "Type=Application\n"
        "StartupWMClass=com.defold.editor.Start\n"

@@ -57,7 +57,7 @@
 (defn- openapi-response [request]
   (http-server/json-response
     {:openapi "3.0.3"
-     :info {:title "Defold Editor HTTP API"
+     :info {:title "GDefold Editor HTTP API"
             :version "1.0"}
      :components {:securitySchemes {"token" {:type "http"
                                              :scheme "bearer"
@@ -89,10 +89,10 @@
              "<html>\n"
              "  <head>\n"
              "    <meta charset=\"utf-8\">\n"
-             "    <title>Defold Editor HTTP Server - " project-title-html "</title>\n"
+             "    <title>GDefold Editor HTTP Server - " project-title-html "</title>\n"
              "  </head>\n"
              "  <body>\n"
-             "    <h1>Defold Editor HTTP Server - " project-title-html "</h1>\n"
+             "    <h1>GDefold Editor HTTP Server - " project-title-html "</h1>\n"
              "    <p><strong>Project:</strong> <code>" (html-escape project-path) "</code></p>\n"
              "    <p><a href=\"/openapi.json\">OpenAPI spec</a></p>\n"
              "  </body>\n"
