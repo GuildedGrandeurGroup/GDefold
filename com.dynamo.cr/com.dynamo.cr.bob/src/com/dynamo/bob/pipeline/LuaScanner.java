@@ -704,6 +704,8 @@ public class LuaScanner {
                 }
             } else if (type == LuaParser.FALSE || type == LuaParser.TRUE) {
                 return new Success(expCtx, PropertyType.PROPERTY_TYPE_BOOLEAN, Boolean.parseBoolean(initialToken.getText()));
+            } else if (type == LuaParser.NORMALSTRING || type == LuaParser.CHARSTRING) {
+                return new Success(expCtx, PropertyType.PROPERTY_TYPE_STRING, initialToken.getText().replace(QUOTES.getOrDefault(type, ""), ""));
             } else if (type == LuaParser.NAME) {
                 LuaParser.VariableContext varCtx = expCtx.variable();
                 // function expected

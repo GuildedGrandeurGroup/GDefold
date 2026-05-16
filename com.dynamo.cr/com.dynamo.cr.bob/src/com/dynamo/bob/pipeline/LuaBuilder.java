@@ -657,13 +657,18 @@ public abstract class LuaBuilder extends Builder {
                         builder.addFloatValues(((Boolean) property.value()) ? 1.0f : 0.0f);
                         builder.addBoolEntries(entryBuilder);
                         break;
+                    case PROPERTY_TYPE_STRING:
+                        entryBuilder.setIndex(builder.getStringValuesCount());
+                        builder.addStringValues((String)property.value());
+                        builder.addStringEntries(entryBuilder);
+                        break;
                     }
                 } else if (property.status() == Status.INVALID_ARGS) {
-                    throw new CompileExceptionError(resource, property.startLine() + 1, "go.property takes a string and a value as arguments. The value must have the type number, boolean, hash, msg.url, vmath.vector3, vmath.vector4, vmath.quat, or resource.*.");
+                    throw new CompileExceptionError(resource, property.startLine() + 1, "go.property takes a string and a value as arguments. The value must have the type number, string, boolean, hash, msg.url, vmath.vector3, vmath.vector4, vmath.quat, or resource.*.");
                 } else if (property.status() == Status.INVALID_VALUE) {
-                    throw new CompileExceptionError(resource, property.startLine() + 1, "Only these types are available: number, hash, msg.url, vmath.vector3, vmath.vector4, vmath.quat, resource.*");
+                    throw new CompileExceptionError(resource, property.startLine() + 1, "Only these types are available: number, string, boolean, hash, msg.url, vmath.vector3, vmath.vector4, vmath.quat, resource.*");
                 } else if (property.status() == Status.INVALID_LOCATION) {
-                    throw new CompileExceptionError(resource, property.startLine() + 1, "go.property should be a top-level statement");
+                    throw new CompileExceptionError(resource, property.startLine() + 1, "go.property should be a top-level statement before the init function.");
                 }
             }
         }

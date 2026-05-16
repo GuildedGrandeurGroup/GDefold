@@ -61,6 +61,11 @@ public class PropertiesUtil {
                 builder.addStringValues(desc.getValue());
                 builder.addUrlEntries(entryBuilder);
                 break;
+            case PROPERTY_TYPE_STRING:
+                entryBuilder.setIndex(builder.getStringValuesCount());
+                builder.addStringValues(desc.getValue());
+                builder.addStringEntries(entryBuilder);
+                break;
             case PROPERTY_TYPE_VECTOR3:
                 entryBuilder.setIndex(builder.getFloatValuesCount());
                 if (items.size() != 3) {

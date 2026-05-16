@@ -78,6 +78,7 @@ public class Splash {
         List<String[]> moments = new ArrayList<>();
         
         moments.add(new String[]{"First Successful GDefold build, 15/5/2026", "/GGGhistory/GDefoldItLives+base.png"});
+        moments.add(new String[]{"First Successful String Property Build, 16/5/2026", "/GGGhistory/StringPropertyWorks.png"});
 
         String[] moment = moments.get(randomInt(moments.size()));
 
