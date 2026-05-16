@@ -328,7 +328,7 @@
   (loop [go-props go-props
          decl (->decl [:number-entries :hash-entries :url-entries :string-entries :vector3-entries
               :vector4-entries :quat-entries :bool-entries :float-values
-              :hash-values :string-values])
+              :hash-values :string-values])]
     (if-some [{:keys [id type clj-value value] :as go-prop} (first go-props)]
       (let [_ (assert (go-prop? go-prop))
             values (case type
