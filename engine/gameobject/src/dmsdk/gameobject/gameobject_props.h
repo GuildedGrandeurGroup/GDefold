@@ -73,6 +73,8 @@ namespace dmGameObject
         uint32_t m_URLStringCount;
         uint32_t m_URLStringSize;
         uint32_t m_URLCount;
+        uint32_t m_StringCount;
+        uint32_t m_StringSize;
         uint32_t m_Vector3Count;
         uint32_t m_Vector4Count;
         uint32_t m_QuatCount;
@@ -149,6 +151,15 @@ namespace dmGameObject
      * @param value [type: const char*] The value of the property
      */
     void PropertyContainerPushURLString(HPropertyContainerBuilder builder, dmhash_t id, const char* value);
+
+    /*#
+     * Add a property of type (string) string to the container
+     * @name PropertyContainerPushURLString
+     * @param builder [type: HPropertyContainerBuilder] The container builder
+     * @param id [type: dmhash_t] The id of the property
+     * @param value [type: const char*] The value of the property
+     */
+    void PropertyContainerPushString(HPropertyContainerBuilder builder, dmhash_t id, const char* value);
 
     /*#
      * Add a property of type dmMessage::URL to the container

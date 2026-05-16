@@ -200,6 +200,12 @@ namespace dmGameObject
         m_Bool = v;
     }
 
+    PropertyVar::PropertyVar(const char* v)
+    {
+        m_Type = PROPERTY_TYPE_STRING;
+        m_String = v;
+    }
+
     PropertyVar::PropertyVar(Matrix4 v)
     {
         m_Type   = PROPERTY_TYPE_MATRIX4;

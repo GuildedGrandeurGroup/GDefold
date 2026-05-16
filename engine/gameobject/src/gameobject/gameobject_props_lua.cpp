@@ -29,6 +29,8 @@ namespace dmGameObject
         {
             case LUA_TNUMBER:
                 return PROPERTY_TYPE_NUMBER;
+            case LUA_TSTRING:
+                return PROPERTY_TYPE_STRING;
             case LUA_TBOOLEAN:
                 return PROPERTY_TYPE_BOOLEAN;
             case LUA_TUSERDATA:
@@ -76,6 +78,9 @@ namespace dmGameObject
         {
             case PROPERTY_TYPE_NUMBER:
                 out_var.m_Number = lua_tonumber(L, index);
+                return PROPERTY_RESULT_OK;
+            case PROPERTY_TYPE_STRING:
+                out_var.m_String = lua_tostring(L, index);
                 return PROPERTY_RESULT_OK;
             case PROPERTY_TYPE_HASH:
                 out_var.m_Hash = dmScript::CheckHash(L, index);
@@ -134,6 +139,9 @@ namespace dmGameObject
         {
         case PROPERTY_TYPE_NUMBER:
             lua_pushnumber(L, var.m_Number);
+            break;
+        case PROPERTY_TYPE_STRING:
+            lua_pushstring(L, var.m_String);
             break;
         case PROPERTY_TYPE_HASH:
             dmScript::PushHash(L, var.m_Hash);
@@ -194,6 +202,10 @@ namespace dmGameObject
                     case PROPERTY_TYPE_URL:
                         ++params.m_URLCount;
                         break;
+                    case PROPERTY_TYPE_STRING:
+                        ++params.m_StringCount;
+                        params.m_StringSize += strlen(lua_tostring(L, -1)) + 1;
+                        break;
                     case PROPERTY_TYPE_VECTOR3:
                         ++params.m_Vector3Count;
                         break;
@@ -234,6 +246,9 @@ namespace dmGameObject
                         break;
                     case PROPERTY_TYPE_URL:
                         PropertyContainerPushURL(builder, id, (const char*)dmScript::CheckURL(L, -1));
+                        break;
+                    case PROPERTY_TYPE_STRING:
+                        PropertyContainerPushString(builder, id, lua_tostring(L, -1));
                         break;
                     case PROPERTY_TYPE_VECTOR3:
                         PropertyContainerPushVector3(builder, id, (const float*)dmScript::CheckVector3(L, -1));

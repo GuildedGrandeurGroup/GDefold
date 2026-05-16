@@ -904,6 +904,12 @@ namespace dmGameObject
             *out_type = PROPERTY_TYPE_URL;
             return true;
         }
+        if (FindPropertyNameFromEntries(decls->m_StringEntries.m_Data, decls->m_StringEntries.m_Count,
+                property_id, out_key, out_element_ids))
+        {
+            *out_type = PROPERTY_TYPE_STRING;
+            return true;
+        }
         if (FindPropertyNameFromEntries(decls->m_Vector3Entries.m_Data, decls->m_Vector3Entries.m_Count,
                 property_id, out_key, out_element_ids))
         {
@@ -1110,6 +1116,7 @@ namespace dmGameObject
             case dmGameObject::PROPERTY_TYPE_NUMBER:    entries = decls->m_NumberEntries.m_Data; element_count = decls->m_NumberEntries.m_Count; break;
             case dmGameObject::PROPERTY_TYPE_HASH:      entries = decls->m_HashEntries.m_Data; element_count = decls->m_HashEntries.m_Count; break;
             case dmGameObject::PROPERTY_TYPE_URL:       entries = decls->m_UrlEntries.m_Data; element_count = decls->m_UrlEntries.m_Count; break;
+            //TEMPREMOVEGGG//case dmGameObject::PROPERTY_TYPE_STRING:    entries = decls->m_StringEntries.m_Data; element_count = decls->m_StringEntries.m_Count; break;
             case dmGameObject::PROPERTY_TYPE_VECTOR3:   entries = decls->m_Vector3Entries.m_Data; element_count = decls->m_Vector3Entries.m_Count; break;
             case dmGameObject::PROPERTY_TYPE_VECTOR4:   entries = decls->m_Vector4Entries.m_Data; element_count = decls->m_Vector4Entries.m_Count; break;
             case dmGameObject::PROPERTY_TYPE_QUAT:      entries = decls->m_QuatEntries.m_Data; element_count = decls->m_QuatEntries.m_Count; break;

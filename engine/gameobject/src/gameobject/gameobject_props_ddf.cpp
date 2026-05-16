@@ -29,6 +29,7 @@ namespace dmGameObject
         params.m_URLStringCount = prop_descs->m_UrlEntries.m_Count;
         params.m_URLStringSize = 0;
         params.m_URLCount = 0;
+        params.m_StringCount = prop_descs->m_StringEntries.m_Count;
         params.m_Vector3Count = prop_descs->m_Vector3Entries.m_Count;
         params.m_Vector4Count = prop_descs->m_Vector4Entries.m_Count;
         params.m_QuatCount = prop_descs->m_QuatEntries.m_Count;
@@ -37,7 +38,11 @@ namespace dmGameObject
         {
             params.m_URLStringSize += strlen(prop_descs->m_StringValues.m_Data[prop_descs->m_UrlEntries[i].m_Index]) + 1;
         }
-
+        for (uint32_t i = 0; i < prop_descs->m_StringEntries.m_Count; ++i)
+        {
+            params.m_StringSize += strlen(prop_descs->m_StringValues.m_Data[prop_descs->m_StringEntries[i].m_Index]) + 1;
+        }
+		
         HPropertyContainerBuilder builder = PropertyContainerCreateBuilder(params);
         for (uint32_t i = 0; i < prop_descs->m_NumberEntries.m_Count; ++i)
         {
@@ -73,6 +78,11 @@ namespace dmGameObject
         {
             const dmPropertiesDDF::PropertyDeclarationEntry& entry = prop_descs->m_UrlEntries.m_Data[i];
             PropertyContainerPushURLString(builder, entry.m_Id, prop_descs->m_StringValues[entry.m_Index]);
+        }
+        for (uint32_t i = 0; i < prop_descs->m_StringEntries.m_Count; ++i)
+        {
+            const dmPropertiesDDF::PropertyDeclarationEntry& entry = prop_descs->m_StringEntries.m_Data[i];
+            PropertyContainerPushString(builder, entry.m_Id, prop_descs->m_StringValues[entry.m_Index]);
         }
         return PropertyContainerCreate(builder);
     }

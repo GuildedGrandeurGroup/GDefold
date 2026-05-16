@@ -24,4 +24,5 @@ message PropertyDeclarations
     repeated float                      float_values = 8;
     repeated uint64                     hash_values = 9;
     repeated string                     string_values = 10;
+    repeated PropertyDeclarationEntry   string_entries = 11;
 }

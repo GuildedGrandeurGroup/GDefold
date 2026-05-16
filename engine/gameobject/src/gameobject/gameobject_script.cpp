@@ -2108,9 +2108,13 @@ namespace dmGameObject
         {
             valid_type = true;
         }
+        else if (lua_type(L, 2) == LUA_TSTRING)
+        {
+            valid_type = true;
+        }
         if (!valid_type)
         {
-            return luaL_error(L, "Invalid type (%s) supplied to go.property, must be either a number, boolean, hash, URL, vector3, vector4 or quaternion.", lua_typename(L, lua_type(L, 2)));
+            return luaL_error(L, "Invalid type (%s) supplied to go.property, must be either a number, boolean, hash, URL, vector3, vector4, quaternion or string.", lua_typename(L, lua_type(L, 2)));
         }
         assert(top == lua_gettop(L));
         return 0;
@@ -2520,6 +2524,17 @@ bail:
                 return PROPERTY_RESULT_OK;
             }
         }
+        n = defs->m_StringEntries.m_Count;
+        for (uint32_t i = 0; i < n; ++i)
+        {
+            const PropertyDeclarationEntry& entry = defs->m_StringEntries[i];
+            if (entry.m_Id == id)
+            {
+                out_var.m_Type = PROPERTY_TYPE_STRING;
+                out_var.m_String = defs->m_StringValues[entry.m_Index];
+                return PROPERTY_RESULT_OK;
+            }
+        }
         n = defs->m_Vector3Entries.m_Count;
         for (uint32_t i = 0; i < n; ++i)
         {
@@ -2709,6 +2724,16 @@ bail:
             lua_pushstring(L, entry.m_Key);
             dmMessage::URL* url = (dmMessage::URL*) var.m_URL;
             dmScript::PushURL(L, *url);
+            lua_settable(L, index - 2);
+        }
+        count = declarations->m_StringEntries.m_Count;
+        for (uint32_t i = 0; i < count; ++i)
+        {
+            const PropertyDeclarationEntry& entry = declarations->m_StringEntries[i];
+            PropertyResult result = GetProperty(properties, entry.m_Id, var);
+            CHECK_PROP_RESULT(entry.m_Key, var.m_Type, PROPERTY_TYPE_STRING, result)
+            lua_pushstring(L, entry.m_Key);
+            lua_pushstring(L, var.m_String);
             lua_settable(L, index - 2);
         }
         count = declarations->m_Vector3Entries.m_Count;

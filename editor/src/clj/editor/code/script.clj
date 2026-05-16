@@ -198,6 +198,7 @@
           :script-property-type-vector4
           :script-property-type-quat
           :script-property-type-boolean
+          :script-property-type-string
           :script-property-type-resource))
 
 (defn- prop->key [p]

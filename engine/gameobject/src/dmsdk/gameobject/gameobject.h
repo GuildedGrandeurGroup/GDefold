@@ -210,6 +210,7 @@ namespace dmGameObject
      * @member dmGameObject::PROPERTY_TYPE_VECTOR4
      * @member dmGameObject::PROPERTY_TYPE_QUAT
      * @member dmGameObject::PROPERTY_TYPE_BOOLEAN
+     * @member dmGameObject::PROPERTY_TYPE_STRING
      * @member dmGameObject::PROPERTY_TYPE_COUNT
      */
     enum PropertyType
@@ -223,6 +224,7 @@ namespace dmGameObject
         PROPERTY_TYPE_QUAT = 5,
         PROPERTY_TYPE_BOOLEAN = 6,
         PROPERTY_TYPE_MATRIX4 = 7,
+        PROPERTY_TYPE_STRING = 8,
         PROPERTY_TYPE_COUNT
     };
 
@@ -338,6 +340,7 @@ namespace dmGameObject
      * @member m_Url [type:const uin8_t*] An URL value (union)
      * @member m_V4 [type:float] A vector4 value (union)
      * @member m_Bool [type:bool] A boolean value (union)
+     * @member m_String [type:const char*] A string value (union)
      */
     struct PropertyVar
     {
@@ -351,6 +354,7 @@ namespace dmGameObject
         PropertyVar(dmVMath::Quat v);
         PropertyVar(dmVMath::Matrix4 v);
         PropertyVar(bool v);
+        PropertyVar(const char* v);
 
         PropertyType m_Type;
         union
@@ -362,6 +366,7 @@ namespace dmGameObject
             float m_V4[4];
             float m_M4[16];
             bool m_Bool;
+            const char* m_String;
         };
     };
 
